@@ -8,64 +8,72 @@ To write a program to implement the Decision Tree Classifier Model for Predictin
 2. Anaconda – Python 3.7 Installation / Jupyter notebook
 
 ## Algorithm
-1. Import the standard libraries.
-2. Upload the dataset and check for any null values using .isnull() function. 
-3. Import LabelEncoder and encode the dataset.
-4. Import DecisionTreeRegressor from sklearn and apply the model on the dataset
+1. Import pandas
+2. Import Decision tree classifier
+3. Fit the data in the model
+4. Find the accuracy score
+
+
 ## Program:
 ```
 /*
-Program to implement the Decision Tree Regressor Model for Predicting the Salary of the Employee.
+Program to implement the Decision Tree Classifier Model for Predicting Employee Churn.
 Developed by: VINODINI R
-RegisterNumber:  212223040244
+RegisterNumber: 212223040244
 */
+```
+```
 import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.tree import DecisionTreeClassifier, plot_tree
-data = pd.read_csv("Salary_EX7.csv")
+data=pd.read_csv("/content/Employee.csv")
+data.head()
+data.info()
 data.head()
 data.info()
 data.isnull().sum()
+data["left"].value_counts()
 from sklearn.preprocessing import LabelEncoder
-le = LabelEncoder()
-data["Position"] = le.fit_transform(data["Position"])
+le=LabelEncoder()
+data["salary"]=le.fit_transform(data["salary"])
 data.head()
-x=data[["Position","Level"]]
-y=data["Salary"]
+x=data[["satisfaction_level","last_evaluation","number_project","average_montly_hours","time_spend_company","Work_accident","promotion_last_5years","salary"]]
+x.head()
+y=data["left"]
 from sklearn.model_selection import train_test_split
-x_train, x_test, y_train, y_test = train_test_split(x,y,test_size=0.2,random_state=2)
-from sklearn.tree import DecisionTreeRegressor
-dt=DecisionTreeRegressor()
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.2,random_state=100)
+from sklearn.tree import DecisionTreeClassifier
+dt=DecisionTreeClassifier(criterion="entropy")
 dt.fit(x_train,y_train)
 y_pred=dt.predict(x_test)
 from sklearn import metrics
-mse = metrics.mean_squared_error(y_test,y_pred)
-mse
-r2=metrics.r2_score(y_test,y_pred)
-r2
-dt.predict([[5,6]])
-plt.figure(figsize=(20, 8))
-plot_tree(dt, feature_names=x.columns, filled=True)
-plt.show()
+accuracy=metrics.accuracy_score(y_test,y_pred)
+accuracy
+dt.predict([[0.5,0.8,9,260,6,0,1,2]])
 ```
-
 ## Output:
-# HEAD(), INFO() & NULL():
+## Data.head()
+![image](https://github.com/user-attachments/assets/86fcefb5-d00f-4f4b-93fd-e10ce7d8f070)
 
-![image](https://github.com/user-attachments/assets/c22cc8bc-d14f-4bd8-8c1c-d7d45307de29)
-# Converting string literals to numerical values using label encoder:
+## Data.info()
+![image](https://github.com/user-attachments/assets/dc78d66a-a8a7-4524-a589-93c6a84ba4ea)
 
-![image](https://github.com/user-attachments/assets/41e7262e-92d6-4895-87ea-06d6f2c9eaa4)
-# MEAN SQUARED ERROR:
+## Data.isnull().sum()
+![image](https://github.com/user-attachments/assets/310dc6d2-6c19-4d2e-a051-6d7377b04756)
 
-![image](https://github.com/user-attachments/assets/fd0ab218-5d61-4bd5-b598-f616a324dc0d)
-# R2 (Variance):
+## Data value count
+![image](https://github.com/user-attachments/assets/868949a4-8ec0-4965-a585-835b644817e2)
 
-![image](https://github.com/user-attachments/assets/a9e550cf-1e3a-4293-8221-dc6e3b88d945)
+##   Data.head() for salary
+![image](https://github.com/user-attachments/assets/4259ac0f-1b68-4e46-8f03-9bf2c0ef6213)
 
-# DATA PREDICTION & DECISION TREE REGRESSOR FOR PREDICTING THE SALARY OF THE EMPLOYEE:
+## x.head()
+![image](https://github.com/user-attachments/assets/3ec27a02-2a40-4788-a493-43055fface58)
 
-![image](https://github.com/user-attachments/assets/da339180-8173-4a17-8333-9dfa012624a4)
+## Accuracy value
+![image](https://github.com/user-attachments/assets/fafd3b5c-6264-4fe4-a499-48b879ae001b)
+
+## Data prediction
+![image](https://github.com/user-attachments/assets/1b823bfc-5108-41f6-8618-a57d059f99fe)
+
 
 ## Result:
 Thus the program to implement the  Decision Tree Classifier Model for Predicting Employee Churn is written and verified using python programming.
